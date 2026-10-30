@@ -1,0 +1,29 @@
+.student-card-preview { flex-direction: column; align-items: center; gap: 5px; padding-bottom: 9px; }
+.student-card-print-hint { display: inline-flex; align-items: center; justify-content: center; gap: 5px; font-size: 10px; color: #647c52; line-height: 1.5; }
+.student-card-preview:hover .student-card-print-hint { color: #285a41; }
+
+.plant-card-controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.plant-card-theme { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 8px 11px; border: 1px solid #e1e7d9; border-radius: 20px; background: #fffefb; font-size: 11px; font-weight: 600; color: #617257; }
+.plant-card-theme[aria-pressed="true"] { border-color: #698b5f; background: #edf4e7; color: #2d543b; }
+.plant-card-swatch { display: grid; place-items: center; height: 18px; width: 18px; border-radius: 50%; background: #355746; color: #fff8de; }
+.plant-card-theme[data-theme="sunset"] .plant-card-swatch { background: #ad5d48; }
+.plant-card-theme[data-theme="moonlight"] .plant-card-swatch { background: #524d79; }
+.plant-card-preview-stage { display: flex; justify-content: center; padding: 10px 0 18px; }
+.plant-card-print-actions { display: grid; gap: 16px; }
+.plant-card-print-actions p { color: #6f7e66; font-size: 11px; line-height: 1.7; text-align: center; }
+.plant-card-print-root { display: none; }
+
+@media (max-width: 380px) {
+  .plant-card-controls { gap: 5px; }
+  .plant-card-theme { padding: 7px 8px; font-size: 10px; }
+}
+
+@media print {
+  @page { margin: 12mm; }
+  html:has(.plant-card-print-root), body:has(> .plant-card-print-root) { min-width: 0 !important; height: auto !important; overflow: visible !important; background: white !important; }
+  body:has(> .plant-card-print-root) { margin: 0 !important; }
+  body:has(> .plant-card-print-root) > :not(.plant-card-print-root) { display: none !important; }
+  .plant-card-print-root { display: block !important; width: 70mm; margin: 0 auto; break-inside: avoid; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .plant-card-print-root .plant-keepsake { width: 70mm; max-width: none; height: 98mm; margin: 0; box-shadow: none; break-inside: avoid; }
+  .plant-card-print-root *, .plant-card-print-root *::before, .plant-card-print-root *::after { animation: none !important; transition: none !important; }
+}

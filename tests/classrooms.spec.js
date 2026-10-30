@@ -1,0 +1,38 @@
+import { test, expect } from './authenticated-fixture.js';
+
+test('create, award, switch and reload keep signed-in classroom gardens separate', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Switch or create classroom' }).click();
+  await expect(page.getByRole('group', { name: 'Your classrooms' })).toBeVisible();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await page.keyboard.press('ArrowDown');
+  await expect(page.getByRole('button', { name: 'Open The Sunshine Class' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('group', { name: 'Your classrooms' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Switch or create classroom' })).toBeFocused();
+  await page.getByRole('button', { name: 'Switch or create classroom' }).click();
+  await page.getByRole('button', { name: 'Create class', exact: true }).click();
+  await page.getByLabel('New class name').fill('Maple Class');
+  await page.getByRole('button', { name: 'Create class', exact: true }).click();
+  await expect(page.locator('.class-switch')).toHaveText('Maple Class');
+  await expect(page.locator('.plant-spot')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Add student', exact: true }).click();
+  await page.getByLabel(/Student names/).fill('Maple Mia');
+  await page.getByRole('button', { name: 'Plant a new beginning' }).click();
+  await page.getByRole('button', { name: 'Water everyone', exact: true }).click();
+  await expect(page.getByRole('button', { name: /^Maple Mia, Sunflower, 10/ })).toBeVisible();
+  await page.reload();
+  await expect(page.locator('.class-switch')).toHaveText('Maple Class');
+  await page.getByRole('button', { name: 'Switch or create classroom' }).click();
+  await page.getByRole('button', { name: 'Open The Sunshine Class' }).click();
+  await expect(page.getByRole('button', { name: /^Emma, Sunflower, 145/ })).toBeVisible();
+  await expect(page.getByRole('button', { name: /^Maple Mia,/ })).toHaveCount(0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole('button', { name: 'Switch or create classroom' }).click();
+  await page.getByRole('button', { name: 'Open Maple Class' }).click();
+  await expect(page.getByRole('button', { name: /^Maple Mia, Sunflower, 10/ })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  expect(errors).toEqual([]);
+});

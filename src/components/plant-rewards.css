@@ -1,0 +1,26 @@
+.earned-fireflies { animation: firefly-glow 2.8s ease-in-out infinite alternate; }
+@keyframes firefly-glow { from { opacity: .35; } to { opacity: 1; filter: drop-shadow(0 0 3px #ffe395); } }
+.garden-play-toggle { display: flex; gap: 6px; align-items: center; border: 1px solid #bcccae; border-radius: 8px; padding: 8px 12px; font-size: 12px; background: #fffdf5; }
+.garden-play-toggle[aria-pressed="true"] { background: #e8e0f4; color: #61507f; }
+.plant-spot.is-playing .plant-foliage { animation: friendly-wiggle 1.8s ease-in-out; }
+.plant-spot.is-playing .plant-art::after { content: '♡'; position: absolute; top: 20%; right: 15%; color: #c67b87; font-size: 30px; animation: friendly-heart 2.4s ease-out both; }
+.plant-friend { position: absolute; z-index: 5; top: 20%; right: 17%; width: 30px; height: 25px; pointer-events: none; animation: friend-landing 2.5s ease-in-out both; }
+.plant-friend::before, .plant-friend::after { content: ''; position: absolute; width: 14px; height: 22px; background: #e7ac7f; border-radius: 80% 30% 80% 30%; transform: rotate(-25deg); }
+.plant-friend::after { left: 13px; transform: scaleX(-1) rotate(-25deg); background: #f1ca94; }
+@keyframes friendly-wiggle { 0%,100% { transform: rotate(0); } 25%,75% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+@keyframes friendly-heart { 0% { opacity: 0; transform: scale(.5); } 20%,70% { opacity: 1; } 100% { opacity: 0; transform: translateY(-15px); } }
+@keyframes friend-landing { 0% { opacity: 0; transform: translate(35px,-35px); } 30%,80% { opacity: 1; transform: translate(0,0); } 100% { opacity: 0; transform: translate(20px,-30px); } }
+.class-celebration { position: absolute; inset: 0; z-index: 12; pointer-events: none; overflow: hidden; }
+.class-celebration-message { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); width: max-content; max-width: 90%; padding: 14px 22px; border: 1px solid #d6b86d; border-radius: 16px; color: #476240; background: #fffbed; box-shadow: 0 8px 30px #294a3820; text-align: center; }
+.class-celebration-message strong, .class-celebration-message span { display: block; }
+.class-celebration-message span { margin-top: 4px; font-size: 12px; }
+.class-rainbow { position: absolute; width: 65%; aspect-ratio: 2; left: 17.5%; top: 17%; border-radius: 100% 100% 0 0; border: 14px solid #dfa0a5; border-bottom: 0; box-shadow: 0 -9px 0 #e8bd76, 0 -18px 0 #f1da8c, 0 -27px 0 #b9ce9a, 0 -36px 0 #a9cadb; opacity: .55; }
+.class-celebration .plant-friend { left: calc(10% + var(--friend) * 13%); top: calc(42% + var(--friend) * 5%); animation: friend-landing 4s ease-in-out infinite; animation-delay: calc(var(--friend) * -.5s); }
+.class-fireflies { position: absolute; inset: 20% 10%; background: radial-gradient(circle at 10% 30%, #ffe7a2 0 3px, transparent 5px), radial-gradient(circle at 70% 60%, #ffe7a2 0 4px, transparent 7px), radial-gradient(circle at 35% 80%, #ffe7a2 0 3px, transparent 6px), radial-gradient(circle at 90% 20%, #ffe7a2 0 3px, transparent 6px); animation: firefly-glow 1.8s infinite alternate; }
+.plant-reward-summary { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 0 0 16px; }
+.plant-reward-summary span { padding: 5px 9px; font-size: 10px; color: #6d613b; background: #faf0d4; border-radius: 20px; }
+.growth-guide .guide-stages { flex-wrap: wrap; row-gap: 12px; }
+.plant-keepsake[data-pot="sky"] { border-color: #659cad; }
+.plant-keepsake[data-pot="golden"] { border-color: #c39343; }
+.plant-keepsake[data-pot="enchanted"] { border-color: #8b78b4; box-shadow: 0 0 0 2px #d5bf86, 0 12px 32px #7d6aab40; }
+@media (prefers-reduced-motion: reduce) { .earned-fireflies, .plant-spot.is-playing .plant-foliage, .plant-spot.is-playing .plant-art::after, .plant-friend, .class-fireflies { animation: none !important; } }
